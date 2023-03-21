@@ -1,0 +1,1822 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.11.2 on win32)" generated="20230321 12:58:57.016" rpa="false" schemaversion="3">
+<suite id="s1" name="TC01" source="C:\Users\Yuliya Lesko\Workspace\nederlandseLoterijProject\Scenarios\TC01.robot">
+<test id="s1-t1" name="Verify correct prizes calculation for entered ticket numbers" line="10">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${mainPage}</arg>
+<arg>Chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230321 12:58:57.634" level="INFO">Opening browser 'Chrome' to base url 'https://eurojackpot.nederlandseloterij.nl/uitslag'.</msg>
+<status status="PASS" starttime="20230321 12:58:57.633" endtime="20230321 12:59:00.279"/>
+</kw>
+<kw name="Consent cookies pop up" library="keywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>//button[text()='Akkoord']</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230321 12:59:00.280" endtime="20230321 12:59:00.534"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${popUpExists}</var>
+<arg>Element Should Be Visible</arg>
+<arg>//button[text()='Akkoord']</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>//button[text()='Akkoord']</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20230321 12:59:00.547" level="INFO">Element '//button[text()='Akkoord']' is displayed.</msg>
+<status status="PASS" starttime="20230321 12:59:00.534" endtime="20230321 12:59:00.547"/>
+</kw>
+<msg timestamp="20230321 12:59:00.547" level="INFO">${popUpExists} = True</msg>
+<status status="PASS" starttime="20230321 12:59:00.534" endtime="20230321 12:59:00.547"/>
+</kw>
+<if>
+<branch type="IF" condition="${popUpExists} == True">
+<kw name="Click Button" library="SeleniumLibrary">
+<arg>//button[text()='Akkoord']</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:00.547" level="INFO">Clicking button '//button[text()='Akkoord']'.</msg>
+<status status="PASS" starttime="20230321 12:59:00.547" endtime="20230321 12:59:00.617"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:00.547" endtime="20230321 12:59:00.617"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:00.547" endtime="20230321 12:59:00.617"/>
+</if>
+<kw name="Element Should Not Be Visible" library="SeleniumLibrary">
+<arg>//div[@class='cookie-modal base-tile']</arg>
+<doc>Verifies that the element identified by ``locator`` is NOT visible.</doc>
+<msg timestamp="20230321 12:59:00.631" level="INFO">Element '//div[@class='cookie-modal base-tile']' did not exist.</msg>
+<status status="PASS" starttime="20230321 12:59:00.617" endtime="20230321 12:59:00.631"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:00.280" endtime="20230321 12:59:00.631"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>id:draw-select</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20230321 12:59:00.632" endtime="20230321 12:59:00.650"/>
+</kw>
+<kw name="Select random date" library="keywords">
+<var>${randomValue}</var>
+<kw name="Random Int" library="FakerLibrary">
+<var>${randomValue}</var>
+<arg>max=98</arg>
+<doc>Generate a random integer between two integers ``min`` and ``max`` inclusive
+while observing the provided ``step`` value.</doc>
+<msg timestamp="20230321 12:59:00.652" level="INFO">${randomValue} = 47</msg>
+<status status="PASS" starttime="20230321 12:59:00.651" endtime="20230321 12:59:00.652"/>
+</kw>
+<return>
+<value>${randomValue}</value>
+<status status="PASS" starttime="20230321 12:59:00.652" endtime="20230321 12:59:00.652"/>
+</return>
+<msg timestamp="20230321 12:59:00.652" level="INFO">${randomValue} = 47</msg>
+<status status="PASS" starttime="20230321 12:59:00.651" endtime="20230321 12:59:00.652"/>
+</kw>
+<kw name="Select From List By Index" library="SeleniumLibrary">
+<arg>id:draw-select</arg>
+<arg>${randomValue}</arg>
+<doc>Selects options from selection list ``locator`` by ``indexes``.</doc>
+<msg timestamp="20230321 12:59:00.653" level="INFO">Selecting options from selection list 'id:draw-select' by index 47.</msg>
+<status status="PASS" starttime="20230321 12:59:00.652" endtime="20230321 12:59:02.508"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>8</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20230321 12:59:10.510" level="INFO">Slept 8 seconds</msg>
+<status status="PASS" starttime="20230321 12:59:02.508" endtime="20230321 12:59:10.510"/>
+</kw>
+<kw name="Fill first number" library="keywords">
+<kw name="Get WebElements" library="SeleniumLibrary">
+<var>@{elems}</var>
+<arg>xpath://span[contains(@class, 'number-bar')]/span[not(@style)]</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<msg timestamp="20230321 12:59:10.525" level="INFO">@{elems} = [ &lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="fd21db5e-3845-4e7e-b72e-d99786afa730")&gt; | &lt;selenium.webdriver.remote.webelement.WebElement (ses...</msg>
+<status status="PASS" starttime="20230321 12:59:10.512" endtime="20230321 12:59:10.525"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${counter}</var>
+<arg>0</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230321 12:59:10.526" level="INFO">${counter} = 0</msg>
+<status status="PASS" starttime="20230321 12:59:10.525" endtime="20230321 12:59:10.526"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>0</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230321 12:59:10.526" level="INFO">${counterBonus} = 0</msg>
+<status status="PASS" starttime="20230321 12:59:10.526" endtime="20230321 12:59:10.526"/>
+</kw>
+<for flavor="IN">
+<var>${element}</var>
+<value>@{elems}</value>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="fd21db5e-3845-4e7e-b72e-d99786afa730")&gt;</var>
+<if>
+<branch type="IF" condition="${counter} &gt; 4">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-bonus-number-${counterBonus}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.526" endtime="20230321 12:59:10.526"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.527" endtime="20230321 12:59:10.527"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:10.526" endtime="20230321 12:59:10.527"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 4">
+<kw name="Evaluate" library="BuiltIn">
+<var>${randomValue}</var>
+<arg>random.sample(range(1, 50), 1)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.527" endtime="20230321 12:59:10.527"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-number-${counter}</arg>
+<arg>text:${randomValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.527" endtime="20230321 12:59:10.527"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:10.527" endtime="20230321 12:59:10.527"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-number-${counter}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:10.538" level="INFO">Typing text 'text:17' into text field 'id:ticket-0-number-0'.</msg>
+<status status="PASS" starttime="20230321 12:59:10.527" endtime="20230321 12:59:10.617"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:10.527" endtime="20230321 12:59:10.617"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:10.526" endtime="20230321 12:59:10.617"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:10.618" level="INFO">${counter} = 1</msg>
+<status status="PASS" starttime="20230321 12:59:10.617" endtime="20230321 12:59:10.618"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:10.526" endtime="20230321 12:59:10.618"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="4b6b8ec0-bbb8-4083-b0a5-45d332ba9fb7")&gt;</var>
+<if>
+<branch type="IF" condition="${counter} &gt; 4">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-bonus-number-${counterBonus}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.618" endtime="20230321 12:59:10.618"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.618" endtime="20230321 12:59:10.618"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:10.618" endtime="20230321 12:59:10.618"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 4">
+<kw name="Evaluate" library="BuiltIn">
+<var>${randomValue}</var>
+<arg>random.sample(range(1, 50), 1)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.618" endtime="20230321 12:59:10.618"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-number-${counter}</arg>
+<arg>text:${randomValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.618" endtime="20230321 12:59:10.618"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:10.618" endtime="20230321 12:59:10.618"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-number-${counter}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:10.629" level="INFO">Typing text 'text:42' into text field 'id:ticket-0-number-1'.</msg>
+<status status="PASS" starttime="20230321 12:59:10.618" endtime="20230321 12:59:10.696"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:10.618" endtime="20230321 12:59:10.696"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:10.618" endtime="20230321 12:59:10.696"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:10.696" level="INFO">${counter} = 2</msg>
+<status status="PASS" starttime="20230321 12:59:10.696" endtime="20230321 12:59:10.696"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:10.618" endtime="20230321 12:59:10.696"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="2293d7c3-4316-4c4e-b5d9-e9772d8cbdb7")&gt;</var>
+<if>
+<branch type="IF" condition="${counter} &gt; 4">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-bonus-number-${counterBonus}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.696" endtime="20230321 12:59:10.696"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.696" endtime="20230321 12:59:10.696"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:10.696" endtime="20230321 12:59:10.696"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 4">
+<kw name="Evaluate" library="BuiltIn">
+<var>${randomValue}</var>
+<arg>random.sample(range(1, 50), 1)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.697" endtime="20230321 12:59:10.697"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-number-${counter}</arg>
+<arg>text:${randomValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.697" endtime="20230321 12:59:10.697"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:10.696" endtime="20230321 12:59:10.697"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-number-${counter}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:10.708" level="INFO">Typing text 'text:43' into text field 'id:ticket-0-number-2'.</msg>
+<status status="PASS" starttime="20230321 12:59:10.697" endtime="20230321 12:59:10.777"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:10.697" endtime="20230321 12:59:10.777"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:10.696" endtime="20230321 12:59:10.777"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:10.777" level="INFO">${counter} = 3</msg>
+<status status="PASS" starttime="20230321 12:59:10.777" endtime="20230321 12:59:10.777"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:10.696" endtime="20230321 12:59:10.777"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="dd87d7a6-54a0-4faf-814a-9150334e2262")&gt;</var>
+<if>
+<branch type="IF" condition="${counter} &gt; 4">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-bonus-number-${counterBonus}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.777" endtime="20230321 12:59:10.777"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.778" endtime="20230321 12:59:10.778"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:10.777" endtime="20230321 12:59:10.778"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 4">
+<kw name="Evaluate" library="BuiltIn">
+<var>${randomValue}</var>
+<arg>random.sample(range(1, 50), 1)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.778" endtime="20230321 12:59:10.778"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-number-${counter}</arg>
+<arg>text:${randomValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.778" endtime="20230321 12:59:10.778"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:10.778" endtime="20230321 12:59:10.778"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-number-${counter}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:10.789" level="INFO">Typing text 'text:48' into text field 'id:ticket-0-number-3'.</msg>
+<status status="PASS" starttime="20230321 12:59:10.778" endtime="20230321 12:59:10.852"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:10.778" endtime="20230321 12:59:10.852"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:10.777" endtime="20230321 12:59:10.852"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:10.853" level="INFO">${counter} = 4</msg>
+<status status="PASS" starttime="20230321 12:59:10.852" endtime="20230321 12:59:10.853"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:10.777" endtime="20230321 12:59:10.853"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="488005e1-e007-4d70-8eec-97ff53d8fb39")&gt;</var>
+<if>
+<branch type="IF" condition="${counter} &gt; 4">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-bonus-number-${counterBonus}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.853" endtime="20230321 12:59:10.853"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.853" endtime="20230321 12:59:10.853"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:10.853" endtime="20230321 12:59:10.853"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 4">
+<kw name="Evaluate" library="BuiltIn">
+<var>${randomValue}</var>
+<arg>random.sample(range(1, 50), 1)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:10.853" level="INFO">${randomValue} = [6]</msg>
+<status status="PASS" starttime="20230321 12:59:10.853" endtime="20230321 12:59:10.853"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-number-${counter}</arg>
+<arg>text:${randomValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:10.854" level="INFO">Typing text 'text:[6]' into text field 'id:ticket-0-number-4'.</msg>
+<status status="PASS" starttime="20230321 12:59:10.854" endtime="20230321 12:59:10.917"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:10.853" endtime="20230321 12:59:10.917"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-number-${counter}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.917" endtime="20230321 12:59:10.917"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:10.917" endtime="20230321 12:59:10.917"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:10.853" endtime="20230321 12:59:10.917"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:10.917" level="INFO">${counter} = 5</msg>
+<status status="PASS" starttime="20230321 12:59:10.917" endtime="20230321 12:59:10.917"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:10.853" endtime="20230321 12:59:10.917"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="e0090e5b-4e37-418e-bc58-6532bfb34f4d")&gt;</var>
+<if>
+<branch type="IF" condition="${counter} &gt; 4">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-bonus-number-${counterBonus}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:10.929" level="INFO">Typing text 'text:3' into text field 'id:ticket-0-bonus-number-0'.</msg>
+<status status="PASS" starttime="20230321 12:59:10.918" endtime="20230321 12:59:10.992"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:10.992" level="INFO">${counterBonus} = 1</msg>
+<status status="PASS" starttime="20230321 12:59:10.992" endtime="20230321 12:59:10.992"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:10.917" endtime="20230321 12:59:10.992"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 4">
+<kw name="Evaluate" library="BuiltIn">
+<var>${randomValue}</var>
+<arg>random.sample(range(1, 50), 1)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.992" endtime="20230321 12:59:10.992"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-number-${counter}</arg>
+<arg>text:${randomValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.993" endtime="20230321 12:59:10.993"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:10.992" endtime="20230321 12:59:10.993"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-number-${counter}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:10.993" endtime="20230321 12:59:10.993"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:10.993" endtime="20230321 12:59:10.993"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:10.917" endtime="20230321 12:59:10.993"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:10.993" level="INFO">${counter} = 6</msg>
+<status status="PASS" starttime="20230321 12:59:10.993" endtime="20230321 12:59:10.993"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:10.917" endtime="20230321 12:59:10.993"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="085a6cab-ce5d-4897-8f90-673274d6c150")&gt;</var>
+<if>
+<branch type="IF" condition="${counter} &gt; 4">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-bonus-number-${counterBonus}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:11.004" level="INFO">Typing text 'text:7' into text field 'id:ticket-0-bonus-number-1'.</msg>
+<status status="PASS" starttime="20230321 12:59:10.993" endtime="20230321 12:59:11.067"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:11.068" level="INFO">${counterBonus} = 2</msg>
+<status status="PASS" starttime="20230321 12:59:11.067" endtime="20230321 12:59:11.068"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:10.993" endtime="20230321 12:59:11.068"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 4">
+<kw name="Evaluate" library="BuiltIn">
+<var>${randomValue}</var>
+<arg>random.sample(range(1, 50), 1)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.068" endtime="20230321 12:59:11.068"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-number-${counter}</arg>
+<arg>text:${randomValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.068" endtime="20230321 12:59:11.068"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.068" endtime="20230321 12:59:11.068"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-0-number-${counter}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.068" endtime="20230321 12:59:11.068"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.068" endtime="20230321 12:59:11.068"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:10.993" endtime="20230321 12:59:11.068"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:11.068" level="INFO">${counter} = 7</msg>
+<status status="PASS" starttime="20230321 12:59:11.068" endtime="20230321 12:59:11.068"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:10.993" endtime="20230321 12:59:11.068"/>
+</iter>
+<status status="PASS" starttime="20230321 12:59:10.526" endtime="20230321 12:59:11.068"/>
+</for>
+<status status="PASS" starttime="20230321 12:59:10.511" endtime="20230321 12:59:11.069"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Scroll Element Into View</arg>
+<arg>${banner}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Scroll Element Into View" library="SeleniumLibrary">
+<arg>${banner}</arg>
+<doc>Scrolls the element identified by ``locator`` into view.</doc>
+<msg timestamp="20230321 12:59:11.346" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-732.png"&gt;&lt;img src="selenium-screenshot-732.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230321 12:59:11.346" level="FAIL">MoveTargetOutOfBoundsException: Message: move target out of bounds
+  (Session info: chrome=111.0.5563.65)
+Stacktrace:
+Backtrace:
+	(No symbol) [0x0091DCE3]
+	(No symbol) [0x008B39D1]
+	(No symbol) [0x007C4C70]
+	(No symbol) [0x00824558]
+	(No symbol) [0x0080AECC]
+	(No symbol) [0x0081D57C]
+	(No symbol) [0x0080ACC6]
+	(No symbol) [0x007E6F68]
+	(No symbol) [0x007E80CD]
+	GetHandleVerifier [0x00B93832+2506274]
+	GetHandleVerifier [0x00BC9794+2727300]
+	GetHandleVerifier [0x00BCE36C+2746716]
+	GetHandleVerifier [0x009C6690+617600]
+	(No symbol) [0x008BC712]
+	(No symbol) [0x008C1FF8]
+	(No symbol) [0x008C20DB]
+	(No symbol) [0x008CC63B]
+	BaseThreadInitThunk [0x777900F9+25]
+	RtlGetAppContainerNamedObjectPath [0x77D17BBE+286]
+	RtlGetAppContainerNamedObjectPath [0x77D17B8E+238]
+</msg>
+<status status="FAIL" starttime="20230321 12:59:11.069" endtime="20230321 12:59:11.349"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.069" endtime="20230321 12:59:11.349"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${addNewTicketButton}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:11.350" level="INFO">Clicking element '//button[contains(text(), 'Nog een lot toevoegen')]'.</msg>
+<status status="PASS" starttime="20230321 12:59:11.350" endtime="20230321 12:59:11.421"/>
+</kw>
+<kw name="Fill second number" library="keywords">
+<kw name="Get WebElements" library="SeleniumLibrary">
+<var>@{elems}</var>
+<arg>xpath://span[contains(@class, 'number-bar')]/span[not(@style)]</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<msg timestamp="20230321 12:59:11.433" level="INFO">@{elems} = [ &lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="fd21db5e-3845-4e7e-b72e-d99786afa730")&gt; | &lt;selenium.webdriver.remote.webelement.WebElement (ses...</msg>
+<status status="PASS" starttime="20230321 12:59:11.423" endtime="20230321 12:59:11.433"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${counter}</var>
+<arg>0</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230321 12:59:11.433" level="INFO">${counter} = 0</msg>
+<status status="PASS" starttime="20230321 12:59:11.433" endtime="20230321 12:59:11.433"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>0</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230321 12:59:11.433" level="INFO">${counterBonus} = 0</msg>
+<status status="PASS" starttime="20230321 12:59:11.433" endtime="20230321 12:59:11.433"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${bonusNumber}</var>
+<arg>0</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230321 12:59:11.434" level="INFO">${bonusNumber} = 0</msg>
+<status status="PASS" starttime="20230321 12:59:11.433" endtime="20230321 12:59:11.434"/>
+</kw>
+<for flavor="IN">
+<var>${element}</var>
+<value>@{elems}</value>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="fd21db5e-3845-4e7e-b72e-d99786afa730")&gt;</var>
+<if>
+<branch type="IF" condition="${counter} == 5">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.434" endtime="20230321 12:59:11.434"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${bonusNumber}</var>
+<arg>${element.text}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.434" endtime="20230321 12:59:11.434"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.434" endtime="20230321 12:59:11.434"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.434" endtime="20230321 12:59:11.434"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 6">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${element.text}-1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.434" endtime="20230321 12:59:11.435"/>
+</kw>
+<if>
+<branch type="IF" condition="${uniqueValue}==${bonusNumber}">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${bonusNumber}-1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.435" endtime="20230321 12:59:11.435"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.435" endtime="20230321 12:59:11.435"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.435" endtime="20230321 12:59:11.435"/>
+</branch>
+<branch type="ELSE IF" condition="${uniqueValue}== 0">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${uniqueValue}+2</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.435" endtime="20230321 12:59:11.435"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.435" endtime="20230321 12:59:11.435"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.435" endtime="20230321 12:59:11.435"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.435" endtime="20230321 12:59:11.435"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.435" endtime="20230321 12:59:11.435"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.435" endtime="20230321 12:59:11.435"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.435" endtime="20230321 12:59:11.435"/>
+</branch>
+<status status="NOT RUN" starttime="20230321 12:59:11.435" endtime="20230321 12:59:11.435"/>
+</if>
+<status status="NOT RUN" starttime="20230321 12:59:11.434" endtime="20230321 12:59:11.435"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 4">
+<kw name="Evaluate" library="BuiltIn">
+<var>${randomValue}</var>
+<arg>random.sample(range(1, 50), 1)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.436" endtime="20230321 12:59:11.436"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-number-${counter}</arg>
+<arg>text:${randomValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.436" endtime="20230321 12:59:11.436"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.435" endtime="20230321 12:59:11.436"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-number-${counter}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:11.443" level="INFO">Typing text 'text:17' into text field 'id:ticket-1-number-0'.</msg>
+<status status="PASS" starttime="20230321 12:59:11.436" endtime="20230321 12:59:11.520"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.436" endtime="20230321 12:59:11.520"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:11.434" endtime="20230321 12:59:11.520"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:11.520" level="INFO">${counter} = 1</msg>
+<status status="PASS" starttime="20230321 12:59:11.520" endtime="20230321 12:59:11.520"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.434" endtime="20230321 12:59:11.520"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="4b6b8ec0-bbb8-4083-b0a5-45d332ba9fb7")&gt;</var>
+<if>
+<branch type="IF" condition="${counter} == 5">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.520" endtime="20230321 12:59:11.520"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${bonusNumber}</var>
+<arg>${element.text}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.521" endtime="20230321 12:59:11.521"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.521" endtime="20230321 12:59:11.521"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.520" endtime="20230321 12:59:11.521"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 6">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${element.text}-1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.521" endtime="20230321 12:59:11.521"/>
+</kw>
+<if>
+<branch type="IF" condition="${uniqueValue}==${bonusNumber}">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${bonusNumber}-1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.521" endtime="20230321 12:59:11.521"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.521" endtime="20230321 12:59:11.521"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.521" endtime="20230321 12:59:11.521"/>
+</branch>
+<branch type="ELSE IF" condition="${uniqueValue}== 0">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${uniqueValue}+2</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.521" endtime="20230321 12:59:11.521"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.521" endtime="20230321 12:59:11.521"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.521" endtime="20230321 12:59:11.521"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.521" endtime="20230321 12:59:11.521"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.522" endtime="20230321 12:59:11.522"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.522" endtime="20230321 12:59:11.522"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.521" endtime="20230321 12:59:11.522"/>
+</branch>
+<status status="NOT RUN" starttime="20230321 12:59:11.521" endtime="20230321 12:59:11.522"/>
+</if>
+<status status="NOT RUN" starttime="20230321 12:59:11.521" endtime="20230321 12:59:11.522"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 4">
+<kw name="Evaluate" library="BuiltIn">
+<var>${randomValue}</var>
+<arg>random.sample(range(1, 50), 1)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.522" endtime="20230321 12:59:11.522"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-number-${counter}</arg>
+<arg>text:${randomValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.522" endtime="20230321 12:59:11.522"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.522" endtime="20230321 12:59:11.522"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-number-${counter}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:11.528" level="INFO">Typing text 'text:42' into text field 'id:ticket-1-number-1'.</msg>
+<status status="PASS" starttime="20230321 12:59:11.522" endtime="20230321 12:59:11.595"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.522" endtime="20230321 12:59:11.595"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:11.520" endtime="20230321 12:59:11.595"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:11.596" level="INFO">${counter} = 2</msg>
+<status status="PASS" starttime="20230321 12:59:11.596" endtime="20230321 12:59:11.596"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.520" endtime="20230321 12:59:11.596"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="2293d7c3-4316-4c4e-b5d9-e9772d8cbdb7")&gt;</var>
+<if>
+<branch type="IF" condition="${counter} == 5">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.596" endtime="20230321 12:59:11.596"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${bonusNumber}</var>
+<arg>${element.text}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.596" endtime="20230321 12:59:11.596"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.596" endtime="20230321 12:59:11.596"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.596" endtime="20230321 12:59:11.596"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 6">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${element.text}-1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.596" endtime="20230321 12:59:11.596"/>
+</kw>
+<if>
+<branch type="IF" condition="${uniqueValue}==${bonusNumber}">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${bonusNumber}-1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.597" endtime="20230321 12:59:11.597"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.597" endtime="20230321 12:59:11.597"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.596" endtime="20230321 12:59:11.597"/>
+</branch>
+<branch type="ELSE IF" condition="${uniqueValue}== 0">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${uniqueValue}+2</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.597" endtime="20230321 12:59:11.597"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.597" endtime="20230321 12:59:11.597"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.597" endtime="20230321 12:59:11.597"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.597" endtime="20230321 12:59:11.597"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.597" endtime="20230321 12:59:11.597"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.597" endtime="20230321 12:59:11.597"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.597" endtime="20230321 12:59:11.597"/>
+</branch>
+<status status="NOT RUN" starttime="20230321 12:59:11.596" endtime="20230321 12:59:11.597"/>
+</if>
+<status status="NOT RUN" starttime="20230321 12:59:11.596" endtime="20230321 12:59:11.597"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 4">
+<kw name="Evaluate" library="BuiltIn">
+<var>${randomValue}</var>
+<arg>random.sample(range(1, 50), 1)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.597" endtime="20230321 12:59:11.597"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-number-${counter}</arg>
+<arg>text:${randomValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.597" endtime="20230321 12:59:11.598"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.597" endtime="20230321 12:59:11.598"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-number-${counter}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:11.604" level="INFO">Typing text 'text:43' into text field 'id:ticket-1-number-2'.</msg>
+<status status="PASS" starttime="20230321 12:59:11.598" endtime="20230321 12:59:11.672"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.598" endtime="20230321 12:59:11.672"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:11.596" endtime="20230321 12:59:11.672"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:11.672" level="INFO">${counter} = 3</msg>
+<status status="PASS" starttime="20230321 12:59:11.672" endtime="20230321 12:59:11.672"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.596" endtime="20230321 12:59:11.672"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="dd87d7a6-54a0-4faf-814a-9150334e2262")&gt;</var>
+<if>
+<branch type="IF" condition="${counter} == 5">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.673" endtime="20230321 12:59:11.673"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${bonusNumber}</var>
+<arg>${element.text}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.673" endtime="20230321 12:59:11.673"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.673" endtime="20230321 12:59:11.673"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.672" endtime="20230321 12:59:11.673"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 6">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${element.text}-1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.673" endtime="20230321 12:59:11.673"/>
+</kw>
+<if>
+<branch type="IF" condition="${uniqueValue}==${bonusNumber}">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${bonusNumber}-1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.673" endtime="20230321 12:59:11.673"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.673" endtime="20230321 12:59:11.673"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.673" endtime="20230321 12:59:11.673"/>
+</branch>
+<branch type="ELSE IF" condition="${uniqueValue}== 0">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${uniqueValue}+2</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.673" endtime="20230321 12:59:11.674"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.674" endtime="20230321 12:59:11.674"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.674" endtime="20230321 12:59:11.674"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.673" endtime="20230321 12:59:11.674"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.674" endtime="20230321 12:59:11.674"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.674" endtime="20230321 12:59:11.674"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.674" endtime="20230321 12:59:11.674"/>
+</branch>
+<status status="NOT RUN" starttime="20230321 12:59:11.673" endtime="20230321 12:59:11.674"/>
+</if>
+<status status="NOT RUN" starttime="20230321 12:59:11.673" endtime="20230321 12:59:11.674"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 4">
+<kw name="Evaluate" library="BuiltIn">
+<var>${randomValue}</var>
+<arg>random.sample(range(1, 50), 1)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.674" endtime="20230321 12:59:11.674"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-number-${counter}</arg>
+<arg>text:${randomValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.674" endtime="20230321 12:59:11.674"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.674" endtime="20230321 12:59:11.674"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-number-${counter}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:11.682" level="INFO">Typing text 'text:48' into text field 'id:ticket-1-number-3'.</msg>
+<status status="PASS" starttime="20230321 12:59:11.674" endtime="20230321 12:59:11.749"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.674" endtime="20230321 12:59:11.749"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:11.672" endtime="20230321 12:59:11.749"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:11.749" level="INFO">${counter} = 4</msg>
+<status status="PASS" starttime="20230321 12:59:11.749" endtime="20230321 12:59:11.749"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.672" endtime="20230321 12:59:11.749"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="488005e1-e007-4d70-8eec-97ff53d8fb39")&gt;</var>
+<if>
+<branch type="IF" condition="${counter} == 5">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.750" endtime="20230321 12:59:11.750"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${bonusNumber}</var>
+<arg>${element.text}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.750" endtime="20230321 12:59:11.750"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.750" endtime="20230321 12:59:11.750"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.749" endtime="20230321 12:59:11.750"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 6">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${element.text}-1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.750" endtime="20230321 12:59:11.750"/>
+</kw>
+<if>
+<branch type="IF" condition="${uniqueValue}==${bonusNumber}">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${bonusNumber}-1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.750" endtime="20230321 12:59:11.750"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.750" endtime="20230321 12:59:11.750"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.750" endtime="20230321 12:59:11.750"/>
+</branch>
+<branch type="ELSE IF" condition="${uniqueValue}== 0">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${uniqueValue}+2</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.750" endtime="20230321 12:59:11.750"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.750" endtime="20230321 12:59:11.750"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.751" endtime="20230321 12:59:11.751"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.750" endtime="20230321 12:59:11.751"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.751" endtime="20230321 12:59:11.751"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.751" endtime="20230321 12:59:11.751"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.751" endtime="20230321 12:59:11.751"/>
+</branch>
+<status status="NOT RUN" starttime="20230321 12:59:11.750" endtime="20230321 12:59:11.751"/>
+</if>
+<status status="NOT RUN" starttime="20230321 12:59:11.750" endtime="20230321 12:59:11.751"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 4">
+<kw name="Evaluate" library="BuiltIn">
+<var>${randomValue}</var>
+<arg>random.sample(range(1, 50), 1)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:11.751" level="INFO">${randomValue} = [31]</msg>
+<status status="PASS" starttime="20230321 12:59:11.751" endtime="20230321 12:59:11.751"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-number-${counter}</arg>
+<arg>text:${randomValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:11.752" level="INFO">Typing text 'text:[31]' into text field 'id:ticket-1-number-4'.</msg>
+<status status="PASS" starttime="20230321 12:59:11.751" endtime="20230321 12:59:11.820"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.751" endtime="20230321 12:59:11.820"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-number-${counter}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.821" endtime="20230321 12:59:11.821"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.820" endtime="20230321 12:59:11.821"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:11.749" endtime="20230321 12:59:11.821"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:11.821" level="INFO">${counter} = 5</msg>
+<status status="PASS" starttime="20230321 12:59:11.821" endtime="20230321 12:59:11.821"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.749" endtime="20230321 12:59:11.821"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="e0090e5b-4e37-418e-bc58-6532bfb34f4d")&gt;</var>
+<if>
+<branch type="IF" condition="${counter} == 5">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:11.827" level="INFO">Typing text 'text:3' into text field 'id:ticket-1-bonus-number-0'.</msg>
+<status status="PASS" starttime="20230321 12:59:11.821" endtime="20230321 12:59:11.892"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${bonusNumber}</var>
+<arg>${element.text}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230321 12:59:11.898" level="INFO">${bonusNumber} = 3</msg>
+<status status="PASS" starttime="20230321 12:59:11.892" endtime="20230321 12:59:11.898"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:11.898" level="INFO">${counterBonus} = 1</msg>
+<status status="PASS" starttime="20230321 12:59:11.898" endtime="20230321 12:59:11.898"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.821" endtime="20230321 12:59:11.898"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 6">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${element.text}-1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.898" endtime="20230321 12:59:11.898"/>
+</kw>
+<if>
+<branch type="IF" condition="${uniqueValue}==${bonusNumber}">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${bonusNumber}-1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.898" endtime="20230321 12:59:11.898"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.898" endtime="20230321 12:59:11.899"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.898" endtime="20230321 12:59:11.899"/>
+</branch>
+<branch type="ELSE IF" condition="${uniqueValue}== 0">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${uniqueValue}+2</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.899" endtime="20230321 12:59:11.899"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.899" endtime="20230321 12:59:11.899"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.899" endtime="20230321 12:59:11.899"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.899" endtime="20230321 12:59:11.899"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.899" endtime="20230321 12:59:11.899"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.899" endtime="20230321 12:59:11.899"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.899" endtime="20230321 12:59:11.899"/>
+</branch>
+<status status="NOT RUN" starttime="20230321 12:59:11.898" endtime="20230321 12:59:11.899"/>
+</if>
+<status status="NOT RUN" starttime="20230321 12:59:11.898" endtime="20230321 12:59:11.899"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 4">
+<kw name="Evaluate" library="BuiltIn">
+<var>${randomValue}</var>
+<arg>random.sample(range(1, 50), 1)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.899" endtime="20230321 12:59:11.899"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-number-${counter}</arg>
+<arg>text:${randomValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.899" endtime="20230321 12:59:11.899"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.899" endtime="20230321 12:59:11.899"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-number-${counter}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.900" endtime="20230321 12:59:11.900"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.899" endtime="20230321 12:59:11.900"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:11.821" endtime="20230321 12:59:11.900"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:11.900" level="INFO">${counter} = 6</msg>
+<status status="PASS" starttime="20230321 12:59:11.900" endtime="20230321 12:59:11.900"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.821" endtime="20230321 12:59:11.900"/>
+</iter>
+<iter>
+<var name="${element}">&lt;selenium.webdriver.remote.webelement.WebElement (session="2b699ef03aef4b0ae874f55de48818ce", element="085a6cab-ce5d-4897-8f90-673274d6c150")&gt;</var>
+<if>
+<branch type="IF" condition="${counter} == 5">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.900" endtime="20230321 12:59:11.900"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${bonusNumber}</var>
+<arg>${element.text}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.900" endtime="20230321 12:59:11.900"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.900" endtime="20230321 12:59:11.900"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.900" endtime="20230321 12:59:11.900"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 6">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${element.text}-1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:11.908" level="INFO">${uniqueValue} = 6</msg>
+<status status="PASS" starttime="20230321 12:59:11.901" endtime="20230321 12:59:11.908"/>
+</kw>
+<if>
+<branch type="IF" condition="${uniqueValue}==${bonusNumber}">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${bonusNumber}-1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.908" endtime="20230321 12:59:11.908"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.908" endtime="20230321 12:59:11.908"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.908" endtime="20230321 12:59:11.908"/>
+</branch>
+<branch type="ELSE IF" condition="${uniqueValue}== 0">
+<kw name="Evaluate" library="BuiltIn">
+<var>${uniqueValue}</var>
+<arg>${uniqueValue}+2</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.908" endtime="20230321 12:59:11.908"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.908" endtime="20230321 12:59:11.908"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.909" endtime="20230321 12:59:11.909"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.908" endtime="20230321 12:59:11.909"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-bonus-number-${counterBonus}</arg>
+<arg>text:${uniqueValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:11.909" level="INFO">Typing text 'text:6' into text field 'id:ticket-1-bonus-number-1'.</msg>
+<status status="PASS" starttime="20230321 12:59:11.909" endtime="20230321 12:59:11.979"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counterBonus}</var>
+<arg>${counterBonus}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:11.979" level="INFO">${counterBonus} = 2</msg>
+<status status="PASS" starttime="20230321 12:59:11.979" endtime="20230321 12:59:11.979"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.909" endtime="20230321 12:59:11.979"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:11.908" endtime="20230321 12:59:11.979"/>
+</if>
+<status status="PASS" starttime="20230321 12:59:11.900" endtime="20230321 12:59:11.979"/>
+</branch>
+<branch type="ELSE IF" condition="${counter} == 4">
+<kw name="Evaluate" library="BuiltIn">
+<var>${randomValue}</var>
+<arg>random.sample(range(1, 50), 1)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.979" endtime="20230321 12:59:11.979"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-number-${counter}</arg>
+<arg>text:${randomValue}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.979" endtime="20230321 12:59:11.979"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.979" endtime="20230321 12:59:11.979"/>
+</branch>
+<branch type="ELSE">
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:ticket-1-number-${counter}</arg>
+<arg>text:${element.text}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:11.979" endtime="20230321 12:59:11.979"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:11.979" endtime="20230321 12:59:11.979"/>
+</branch>
+<status status="PASS" starttime="20230321 12:59:11.900" endtime="20230321 12:59:11.979"/>
+</if>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:11.980" level="INFO">${counter} = 7</msg>
+<status status="PASS" starttime="20230321 12:59:11.979" endtime="20230321 12:59:11.980"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.900" endtime="20230321 12:59:11.980"/>
+</iter>
+<status status="PASS" starttime="20230321 12:59:11.434" endtime="20230321 12:59:11.980"/>
+</for>
+<status status="PASS" starttime="20230321 12:59:11.422" endtime="20230321 12:59:11.980"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Scroll Element Into View</arg>
+<arg>${banner}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Scroll Element Into View" library="SeleniumLibrary">
+<arg>${banner}</arg>
+<doc>Scrolls the element identified by ``locator`` into view.</doc>
+<status status="PASS" starttime="20230321 12:59:11.980" endtime="20230321 12:59:12.269"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:11.980" endtime="20230321 12:59:12.269"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${checkTicketButton}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:12.273" level="INFO">Clicking element '//button[text()='Controleer jouw lot(en)']'.</msg>
+<status status="PASS" starttime="20230321 12:59:12.271" endtime="20230321 12:59:12.350"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${errorMessage1}</var>
+<arg>Element Should Be Visible</arg>
+<arg>id:ticket-error-0</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>id:ticket-error-0</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20230321 12:59:12.702" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-733.png"&gt;&lt;img src="selenium-screenshot-733.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230321 12:59:12.702" level="FAIL">The element 'id:ticket-error-0' should be visible, but it is not.</msg>
+<status status="FAIL" starttime="20230321 12:59:12.351" endtime="20230321 12:59:12.702"/>
+</kw>
+<msg timestamp="20230321 12:59:12.702" level="INFO">${errorMessage1} = False</msg>
+<status status="PASS" starttime="20230321 12:59:12.351" endtime="20230321 12:59:12.702"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${errorMessage2}</var>
+<arg>Element Should Be Visible</arg>
+<arg>id:ticket-error-1</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>id:ticket-error-1</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20230321 12:59:13.056" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-734.png"&gt;&lt;img src="selenium-screenshot-734.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230321 12:59:13.057" level="FAIL">The element 'id:ticket-error-1' should be visible, but it is not.</msg>
+<status status="FAIL" starttime="20230321 12:59:12.703" endtime="20230321 12:59:13.057"/>
+</kw>
+<msg timestamp="20230321 12:59:13.057" level="INFO">${errorMessage2} = False</msg>
+<status status="PASS" starttime="20230321 12:59:12.703" endtime="20230321 12:59:13.057"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${counter}</var>
+<arg>0</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230321 12:59:13.058" level="INFO">${counter} = 0</msg>
+<status status="PASS" starttime="20230321 12:59:13.058" endtime="20230321 12:59:13.058"/>
+</kw>
+<while condition="${errorMessage1}== True">
+<iter>
+<kw name="Fill first number" library="keywords">
+<status status="NOT RUN" starttime="20230321 12:59:13.058" endtime="20230321 12:59:13.058"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Scroll Element Into View</arg>
+<arg>${banner}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:13.059" endtime="20230321 12:59:13.059"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${checkTicketButton}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:13.059" endtime="20230321 12:59:13.059"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:13.059" endtime="20230321 12:59:13.059"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Error message is visible, refilling the number...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:13.059" endtime="20230321 12:59:13.059"/>
+</kw>
+<if>
+<branch type="IF" condition="${counter} &gt; 10">
+<break>
+<status status="NOT RUN" starttime="20230321 12:59:13.059" endtime="20230321 12:59:13.059"/>
+</break>
+<status status="NOT RUN" starttime="20230321 12:59:13.059" endtime="20230321 12:59:13.059"/>
+</branch>
+<status status="NOT RUN" starttime="20230321 12:59:13.059" endtime="20230321 12:59:13.059"/>
+</if>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${errorMessage1}</var>
+<arg>Element Should Be Visible</arg>
+<arg>id:ticket-error-0</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:13.059" endtime="20230321 12:59:13.059"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:13.058" endtime="20230321 12:59:13.059"/>
+</iter>
+<status status="NOT RUN" starttime="20230321 12:59:13.058" endtime="20230321 12:59:13.059"/>
+</while>
+<kw name="Set Variable" library="BuiltIn">
+<var>${counter}</var>
+<arg>0</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230321 12:59:13.060" level="INFO">${counter} = 0</msg>
+<status status="PASS" starttime="20230321 12:59:13.060" endtime="20230321 12:59:13.060"/>
+</kw>
+<while condition="${errorMessage2}== True">
+<iter>
+<kw name="Fill second number" library="keywords">
+<status status="NOT RUN" starttime="20230321 12:59:13.060" endtime="20230321 12:59:13.060"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Scroll Element Into View</arg>
+<arg>${banner}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:13.060" endtime="20230321 12:59:13.060"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${checkTicketButton}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:13.061" endtime="20230321 12:59:13.061"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${counter}</var>
+<arg>${counter}+1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:13.061" endtime="20230321 12:59:13.061"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Error message is visible, refilling the number...</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:13.061" endtime="20230321 12:59:13.061"/>
+</kw>
+<if>
+<branch type="IF" condition="${counter} &gt; 10">
+<break>
+<status status="NOT RUN" starttime="20230321 12:59:13.061" endtime="20230321 12:59:13.061"/>
+</break>
+<status status="NOT RUN" starttime="20230321 12:59:13.061" endtime="20230321 12:59:13.061"/>
+</branch>
+<status status="NOT RUN" starttime="20230321 12:59:13.061" endtime="20230321 12:59:13.061"/>
+</if>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${errorMessage2}</var>
+<arg>Element Should Be Visible</arg>
+<arg>id:ticket-error-1</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" starttime="20230321 12:59:13.061" endtime="20230321 12:59:13.061"/>
+</kw>
+<status status="NOT RUN" starttime="20230321 12:59:13.060" endtime="20230321 12:59:13.061"/>
+</iter>
+<status status="NOT RUN" starttime="20230321 12:59:13.060" endtime="20230321 12:59:13.061"/>
+</while>
+<kw name="Sleep" library="BuiltIn">
+<arg>15</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20230321 12:59:28.063" level="INFO">Slept 15 seconds</msg>
+<status status="PASS" starttime="20230321 12:59:13.061" endtime="20230321 12:59:28.063"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Scroll Element Into View</arg>
+<arg>//a[contains(text(), 'Koop nieuwe loten')]</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Scroll Element Into View" library="SeleniumLibrary">
+<arg>//a[contains(text(), 'Koop nieuwe loten')]</arg>
+<doc>Scrolls the element identified by ``locator`` into view.</doc>
+<msg timestamp="20230321 12:59:28.270" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-735.png"&gt;&lt;img src="selenium-screenshot-735.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20230321 12:59:28.271" level="FAIL">MoveTargetOutOfBoundsException: Message: move target out of bounds
+  (Session info: chrome=111.0.5563.65)
+Stacktrace:
+Backtrace:
+	(No symbol) [0x0091DCE3]
+	(No symbol) [0x008B39D1]
+	(No symbol) [0x007C4C70]
+	(No symbol) [0x00824558]
+	(No symbol) [0x0080AECC]
+	(No symbol) [0x0081D57C]
+	(No symbol) [0x0080ACC6]
+	(No symbol) [0x007E6F68]
+	(No symbol) [0x007E80CD]
+	GetHandleVerifier [0x00B93832+2506274]
+	GetHandleVerifier [0x00BC9794+2727300]
+	GetHandleVerifier [0x00BCE36C+2746716]
+	GetHandleVerifier [0x009C6690+617600]
+	(No symbol) [0x008BC712]
+	(No symbol) [0x008C1FF8]
+	(No symbol) [0x008C20DB]
+	(No symbol) [0x008CC63B]
+	BaseThreadInitThunk [0x777900F9+25]
+	RtlGetAppContainerNamedObjectPath [0x77D17BBE+286]
+	RtlGetAppContainerNamedObjectPath [0x77D17B8E+238]
+</msg>
+<status status="FAIL" starttime="20230321 12:59:28.064" endtime="20230321 12:59:28.271"/>
+</kw>
+<status status="PASS" starttime="20230321 12:59:28.064" endtime="20230321 12:59:28.271"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${prize4_2}</var>
+<arg>//th[contains(text(), '4 getallen + 2 bonusgetallen goed')]/ancestor::tr/td[contains(@class, 'prize-table__winning-sum')]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:28.292" level="INFO">${prize4_2} = € 4.229,10</msg>
+<status status="PASS" starttime="20230321 12:59:28.272" endtime="20230321 12:59:28.292"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${prize4_2}</var>
+<arg>'${prize4_2}'.replace(' ','')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:28.293" level="INFO">${prize4_2} = €4.229,10</msg>
+<status status="PASS" starttime="20230321 12:59:28.293" endtime="20230321 12:59:28.293"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${prize4_2}</var>
+<arg>'${prize4_2}'.replace('€','')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:28.294" level="INFO">${prize4_2} = 4.229,10</msg>
+<status status="PASS" starttime="20230321 12:59:28.293" endtime="20230321 12:59:28.294"/>
+</kw>
+<kw name="Element Text Should Be" library="SeleniumLibrary">
+<arg>(//li[@class="ticketchecker__ticket"]/span)[1]</arg>
+<arg>€${prize4_2} gewonnen!</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<msg timestamp="20230321 12:59:28.294" level="INFO">Verifying element '(//li[@class="ticketchecker__ticket"]/span)[1]' contains exact text '€4.229,10 gewonnen!'.</msg>
+<status status="PASS" starttime="20230321 12:59:28.294" endtime="20230321 12:59:28.317"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${prize3_2}</var>
+<arg>//th[contains(text(), '4 getallen + 1 bonusgetal goed')]/ancestor::tr/td[contains(@class, 'prize-table__winning-sum')]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:28.341" level="INFO">${prize3_2} = € 361,60</msg>
+<status status="PASS" starttime="20230321 12:59:28.317" endtime="20230321 12:59:28.341"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${prize3_2}</var>
+<arg>'${prize3_2}'.replace(' ','')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:28.342" level="INFO">${prize3_2} = €361,60</msg>
+<status status="PASS" starttime="20230321 12:59:28.342" endtime="20230321 12:59:28.342"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${prize3_2}</var>
+<arg>'${prize3_2}'.replace('€','')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:28.343" level="INFO">${prize3_2} = 361,60</msg>
+<status status="PASS" starttime="20230321 12:59:28.343" endtime="20230321 12:59:28.344"/>
+</kw>
+<kw name="Element Text Should Be" library="SeleniumLibrary">
+<arg>(//li[@class="ticketchecker__ticket"]/span)[2]</arg>
+<arg>€${prize3_2} gewonnen!</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<msg timestamp="20230321 12:59:28.345" level="INFO">Verifying element '(//li[@class="ticketchecker__ticket"]/span)[2]' contains exact text '€361,60 gewonnen!'.</msg>
+<status status="PASS" starttime="20230321 12:59:28.344" endtime="20230321 12:59:28.368"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${prizeTotal}</var>
+<arg>//div[@class='animated-prize animated-prize--ready']</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230321 12:59:28.420" level="INFO">${prizeTotal} = €
+4
+.
+5
+9
+0
+,
+7
+0</msg>
+<status status="PASS" starttime="20230321 12:59:28.368" endtime="20230321 12:59:28.420"/>
+</kw>
+<kw name="Replace String" library="String">
+<var>${prizeTotal}</var>
+<arg>${prizeTotal}</arg>
+<arg>\n</arg>
+<arg>${EMPTY}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20230321 12:59:28.421" level="INFO">${prizeTotal} = €4.590,70</msg>
+<status status="PASS" starttime="20230321 12:59:28.420" endtime="20230321 12:59:28.421"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${prizeTotal}</var>
+<arg>'${prizeTotal}'.replace('€', '')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:28.421" level="INFO">${prizeTotal} = 4.590,70</msg>
+<status status="PASS" starttime="20230321 12:59:28.421" endtime="20230321 12:59:28.422"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${prizeTotal}</var>
+<arg>'${prizeTotal}'.replace('.', '')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:28.422" level="INFO">${prizeTotal} = 4590,70</msg>
+<status status="PASS" starttime="20230321 12:59:28.422" endtime="20230321 12:59:28.422"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${prizeTotal}</var>
+<arg>'${prizeTotal}'.replace(',', '.')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:28.422" level="INFO">${prizeTotal} = 4590.70</msg>
+<status status="PASS" starttime="20230321 12:59:28.422" endtime="20230321 12:59:28.422"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${prize4_2}</var>
+<arg>'${prize4_2}'.replace('.','')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:28.423" level="INFO">${prize4_2} = 4229,10</msg>
+<status status="PASS" starttime="20230321 12:59:28.423" endtime="20230321 12:59:28.423"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${prize4_2}</var>
+<arg>'${prize4_2}'.replace(',','.')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:28.423" level="INFO">${prize4_2} = 4229.10</msg>
+<status status="PASS" starttime="20230321 12:59:28.423" endtime="20230321 12:59:28.423"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${prize3_2}</var>
+<arg>'${prize3_2}'.replace(',','.')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:28.423" level="INFO">${prize3_2} = 361.60</msg>
+<status status="PASS" starttime="20230321 12:59:28.423" endtime="20230321 12:59:28.424"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${calculatedTotalPrice}</var>
+<arg>${prize4_2}+${prize3_2}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230321 12:59:28.424" level="INFO">${calculatedTotalPrice} = 4590.700000000001</msg>
+<status status="PASS" starttime="20230321 12:59:28.424" endtime="20230321 12:59:28.424"/>
+</kw>
+<kw name="Convert To Number" library="BuiltIn">
+<var>${calculatedTotalPrice}</var>
+<arg>${calculatedTotalPrice}</arg>
+<arg>1</arg>
+<doc>Converts the given item to a floating point number.</doc>
+<msg timestamp="20230321 12:59:28.424" level="INFO">${calculatedTotalPrice} = 4590.7</msg>
+<status status="PASS" starttime="20230321 12:59:28.424" endtime="20230321 12:59:28.424"/>
+</kw>
+<kw name="Convert To Number" library="BuiltIn">
+<var>${prizeTotal}</var>
+<arg>${prizeTotal}</arg>
+<doc>Converts the given item to a floating point number.</doc>
+<msg timestamp="20230321 12:59:28.425" level="INFO">${prizeTotal} = 4590.7</msg>
+<status status="PASS" starttime="20230321 12:59:28.425" endtime="20230321 12:59:28.425"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${calculatedTotalPrice}</arg>
+<arg>${prizeTotal}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230321 12:59:28.426" endtime="20230321 12:59:28.427"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>5</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20230321 12:59:33.429" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" starttime="20230321 12:59:28.427" endtime="20230321 12:59:33.429"/>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20230321 12:59:33.610" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-736.png"&gt;&lt;img src="selenium-screenshot-736.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20230321 12:59:33.431" endtime="20230321 12:59:33.610"/>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20230321 12:59:33.610" endtime="20230321 12:59:35.731"/>
+</kw>
+<doc>This test case verifies that prize of checked tickets in Eurojackpot webpage is returned according to calculation rules</doc>
+<status status="PASS" starttime="20230321 12:58:57.633" endtime="20230321 12:59:35.733"/>
+</test>
+<status status="PASS" starttime="20230321 12:58:57.017" endtime="20230321 12:59:35.739"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="TC01">TC01</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
